@@ -7,9 +7,12 @@ public class EnemyMove : MonoBehaviour
     private CharacterController _characterController;
     private Transform _target;
 
+    private float _defaultSpeed;
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _defaultSpeed = _speed;
     }
 
     private void Update()
@@ -19,6 +22,9 @@ public class EnemyMove : MonoBehaviour
 
         Vector3 targetVector = (_target.position - transform.position).normalized;
         targetVector.y = 0;
+
+        if (targetVector.Equals(Vector3.zero))
+            return;
 
         _characterController.SimpleMove(_speed * targetVector);
         _characterController.transform.rotation = Quaternion.LookRotation(targetVector);
@@ -32,5 +38,10 @@ public class EnemyMove : MonoBehaviour
     public void RaiseSpeed(float percent)
     {
         _speed += _speed * percent;
+    }
+
+    public void SetSpeedToDefault()
+    {
+        _speed = _defaultSpeed;
     }
 }
