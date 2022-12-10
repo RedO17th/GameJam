@@ -10,6 +10,8 @@ public enum EnemyType
 
 public class Enemy : MonoBehaviour
 {
+    public Transform target;
+
     [SerializeField] private EnemyType _type;
     [SerializeField] private int _weigth;
     [SerializeField] private int _price;
@@ -38,6 +40,11 @@ public class Enemy : MonoBehaviour
         _enemyMove.SetTarget(targetTransform);
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        transform.position = position;
+    }
+
     [ContextMenu("TakeDamage")]
     public void TakeDamage()
     {
@@ -56,6 +63,7 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        EventManager.SendEnemyKilled(this);
         StartCoroutine(DieCoroutine());
     }
 
