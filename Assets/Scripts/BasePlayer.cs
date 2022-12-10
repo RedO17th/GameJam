@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,25 +13,38 @@ public class BasePlayer : MonoBehaviour
 
     [SerializeField] private LayerMask _groundMask;
 
-    private CharacterController _charController = null;
+    public event Action OnUseArmament;
 
-    //TODO: Remove object
-    private GameObject _obj = null;
+    private CharacterController _charController = null;
+    private AbilitySystem _abilitySystem = null;
+
 
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
-
-        //TODO: Remove object
-        _obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        _obj.transform.position = Vector3.zero;
+        _abilitySystem = GetComponent<AbilitySystem>();
     }
+
+    private void OnEnable()
+    {
+        _abilitySystem.Initialize(this);
+    }
+
+    private void OnDisable()
+    {
+        _abilitySystem.Deinitialize();
+    }
+
 
     void Update()
     {
+        UseArmament();
+
         Rotation();
         Movement();
     }
+
+    #region Movement
 
     private void Rotation()
     {
@@ -39,19 +53,26 @@ public class BasePlayer : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, _groundMask))
         {
-            _obj.transform.position = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+            var hitPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
 
-            var direction = (_obj.transform.position - transform.position).normalized;
+            var direction = (hitPosition - transform.position).normalized;
             var rotation = Quaternion.LookRotation(direction);
 
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, _speedRotation * Time.deltaTime);
         }           
     }
-
     private void Movement()
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         _charController.Move(transform.rotation * move * Time.deltaTime * _speed);
     }
+
+    #endregion
+
+    private void UseArmament()
+    {
+        if (Input.GetMouseButtonDown(0)) OnUseArmament?.Invoke();
+    }    
 }
+ 
