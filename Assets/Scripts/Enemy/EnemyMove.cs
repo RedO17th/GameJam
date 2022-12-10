@@ -27,4 +27,9 @@ public class EnemyMove : MonoBehaviour
     {
         _target = target;
     }
+
+    public void RaiseSpeed(float percent)
+    {
+        _speed += _speed * percent;
+    }
 }
