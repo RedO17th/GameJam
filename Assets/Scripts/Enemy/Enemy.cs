@@ -10,10 +10,8 @@ public enum EnemyType
 
 public class Enemy : MonoBehaviour
 {
-    public Transform target;
-
     [SerializeField] private EnemyType _type;
-    [SerializeField] private int _weigth;
+    [SerializeField] private int _weight;
     [SerializeField] private int _price;
 
     [Space]
@@ -24,7 +22,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speedBoostPercent = 0.15f;
 
     public EnemyType Type => _type;
-    public int Weight => Weight;
+    public int Weight => _weight;
 
     private EnemyMove _enemyMove;
     private bool _invulnerable;
@@ -33,6 +31,11 @@ public class Enemy : MonoBehaviour
     {
         _enemyMove = GetComponent<EnemyMove>();
         _makeDamage.SetDamage(_damage);
+    }
+
+    private void OnDisable()
+    {
+        _enemyMove.SetSpeedToDefault();
     }
 
     public void SetTarget(Transform targetTransform)
