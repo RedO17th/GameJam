@@ -20,7 +20,8 @@ public class EnemyMove : MonoBehaviour
         Vector3 targetVector = (_target.position - transform.position).normalized;
         targetVector.y = 0;
 
-        _characterController.Move(_speed * Time.deltaTime * targetVector);
+        _characterController.SimpleMove(_speed * targetVector);
+        _characterController.transform.rotation = Quaternion.LookRotation(targetVector);
     }
 
     public void SetTarget(Transform target)
