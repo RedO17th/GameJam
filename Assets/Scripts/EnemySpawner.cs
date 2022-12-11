@@ -5,10 +5,12 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private BasePlayer _target;
+    [SerializeField] private BasePlayer _player;
     [SerializeField] private GameObject _enemyPoolsParant;
-    [SerializeField] private float _spawnInterval;
+    [SerializeField] private float _spawnInterval, _spawnIntervalMax, _stepTime;
+
     [SerializeField] private GameObject[] _spawnZones;
+    [SerializeField] private int _stepGold;
 
     private Enemy[] _enemyPrefabs;
     private ObjectPool<Enemy>[] _enemyPools;
@@ -27,12 +29,22 @@ public class EnemySpawner : MonoBehaviour
     {
         _instance = this;
         EventManager.OnEnemyReturnToPool.AddListener(ReturnEnemyToPool);
+        EventManager.OnGoldChanged.AddListener(CalculateSpawnInterval);
 
     }
 
     private void Start()
     {
         StartSpawning();
+    }
+
+    private void CalculateSpawnInterval(int value)
+    {
+        _spawnInterval = _spawnIntervalMax - (UIManager.TotalEarned / _stepGold) * _stepTime;
+        if (_spawnInterval <= 0.1f)
+        {
+            _spawnInterval = 0.2f;
+        }
     }
 
     public void StopSpawning()
@@ -82,7 +94,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Enemy enemy = Instantiate(prefab);
-            //enemy.transform.SetParent(_enemyPoolsParant.transform);
+            enemy.transform.SetParent(_enemyPoolsParant.transform);
             pool.Release(enemy);
         }
     }
@@ -101,7 +113,7 @@ public class EnemySpawner : MonoBehaviour
         Enemy enemy = pool.Get();
         //enemy.transform.position = position;
         enemy.SetPosition(position);
-        enemy.SetTarget(_target);
+        enemy.SetTarget(_player);
         enemy.GetComponent<CharacterController>().enabled = true;
     }
 

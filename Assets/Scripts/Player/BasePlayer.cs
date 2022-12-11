@@ -17,6 +17,7 @@ public class BasePlayer : MonoBehaviour
     [SerializeField] private int _wallet = 100;
 
     public event Action OnUseAbility;
+
     public Vector3 Position => transform.position;
 
     private CharacterController _charController = null;

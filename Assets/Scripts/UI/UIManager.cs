@@ -57,20 +57,14 @@ public class UIManager : MonoBehaviour
 
     private int _highScore;
 
-    private int _totalEarned;
+    private static int _totalEarned;
 
     private int _goldAmount;
 
     private int _currentDisplayedOrder;
 
     public static event Action OnRestarted;
-
-
-    //Для тестов
-    public event Action<int> OnGoldChanged;
-    public event Action<AbilityData> OnAbilityUsed;
-    public event Action OnPlayerDeath;
-    public static event Action OnEnemyDeath;
+    public static int TotalEarned => _totalEarned;
 
     private void OnEnable()
     {
