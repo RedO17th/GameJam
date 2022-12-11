@@ -76,6 +76,7 @@ public class UIManager : MonoBehaviour
     {
         EventManager.OnGameOver.AddListener(ShowDeathPanel);
         EventManager.OnGoldChanged.AddListener(ChangeScores);
+        EventManager.OnAbilityChanged.AddListener(UseAbility);
     }
 
     private void Awake()
@@ -89,9 +90,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        //OnGoldChanged += ChangeScores;
-        OnAbilityUsed += UseAbility;
-        //OnPlayerDeath += ShowDeathPanel;
         OrderManager.OnOrderChanged += ChangeOrder;
 
         ChangeFireType(_activeFireType);
@@ -105,15 +103,6 @@ public class UIManager : MonoBehaviour
         {
             Pause();
         }
-
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    OnAbilityUsed?.Invoke(new AbilityData(AbilityType.MidasHand, 0.3f));
-        //}
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    OnAbilityUsed?.Invoke(new AbilityData(AbilityType.CloseCombat, 0.3f));
-        //}
     }
 
     private void ShowDeathPanel() 
@@ -154,29 +143,25 @@ public class UIManager : MonoBehaviour
     }
 
     
-    private void UseAbility(AbilityData abilityData)
+    private void UseAbility(AbilityType type)
     {
-        switch (abilityData.GetAbilityType())
+        switch (type)
         {
             case AbilityType.MidasHand:
-                if (_activeFireType != abilityData.GetAbilityType())
+                if (_activeFireType != type)
                 {
-                    StartCoroutine(SetAbilityToCooldown(_imageMeleeAttack, abilityData.GetCooldown()));
+                    StartCoroutine(SetAbilityToCooldown(_imageMeleeAttack, 0.3f));
                 }
                 ChangeFireType(AbilityType.MidasHand);
                 break;
 
             case AbilityType.CloseCombat:
-                if (_activeFireType != abilityData.GetAbilityType())
+                if (_activeFireType != type)
                 {
-                    StartCoroutine(SetAbilityToCooldown(_imageRangeAttack, abilityData.GetCooldown()));
+                    StartCoroutine(SetAbilityToCooldown(_imageRangeAttack, 0.3f));
                 }
                 ChangeFireType(AbilityType.CloseCombat);
                 break;
-
-            //case AbilityType.Grenade:
-            //    StartCoroutine(SetAbilityToCooldown(_imageGrenade, abilityData.GetCooldown()));
-            //    break;
         }
     }
 

@@ -1,12 +1,13 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+
 
 public class EnemyMakeDamage : MonoBehaviour
 {
     private int _damage;
-
+    private bool _damaging = true;
+    private Coroutine _damageCoroutine;
     public void SetDamage(int damage)
     {
         _damage = damage;
@@ -14,6 +15,28 @@ public class EnemyMakeDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //тут будет нанесение урона
+        var player = other.GetComponent<BasePlayer>();
+        if(player)
+        {
+            _damaging = true;
+            _damageCoroutine = StartCoroutine(DamageCoroutine(player));
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        var player = other.GetComponent<BasePlayer>();
+        if (player)
+        {
+            _damaging = false;
+            StopCoroutine(_damageCoroutine);
+        }
+    }
+    private IEnumerator DamageCoroutine(BasePlayer player)
+    {
+        while(_damaging)
+        {
+            yield return new WaitForSeconds(0.5f);
+            player.TakeDamage(_damage);
+        }
     }
 }
