@@ -234,12 +234,11 @@ public class UIManager : MonoBehaviour
 
     public void ToMainMenuScene()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(0);
     }
 
     public void CallRestart()
     {
-        OnRestarted?.Invoke();
-        Debug.Log("Restarted");
+        SceneManager.LoadScene(2);
     }
 }
