@@ -5,6 +5,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private Transform _target;
     [SerializeField] private GameObject _enemyPoolsParant;
     [SerializeField] private float _spawnInterval;
     [SerializeField] private GameObject[] _spawnZones;
@@ -50,7 +51,6 @@ public class EnemySpawner : MonoBehaviour
     private void PreparePrefabs()
     {
         _enemyPrefabs = Resources.LoadAll<Enemy>("Prefabs/EnemyPrefabs");
-        Debug.Log(_enemyPrefabs.Length);
 
         CreatePools();
     }
@@ -64,10 +64,10 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < _enemyPrefabs.Length; i++)
         {
-            _enemyPools[(int)_enemyPrefabs[i].type] = new ObjectPool<Enemy>(createFunc: () => new Enemy(), actionOnGet: (obj) => obj.gameObject.SetActive(true), actionOnRelease: (obj) => obj.gameObject.SetActive(false), actionOnDestroy: (obj) => Destroy(obj), false, defaultCapacity: 50);
+            _enemyPools[(int)_enemyPrefabs[i].Type] = new ObjectPool<Enemy>(createFunc: () => new Enemy(), actionOnGet: (obj) => obj.gameObject.SetActive(true), actionOnRelease: (obj) => obj.gameObject.SetActive(false), actionOnDestroy: (obj) => Destroy(obj), false, defaultCapacity: 50);
 
-            AddChances(_enemyPrefabs[i].weight);
-            FillPool(_enemyPools[(int)_enemyPrefabs[i].type], _enemyPrefabs[i], 50);
+            AddChances(_enemyPrefabs[i].Weight);
+            FillPool(_enemyPools[(int)_enemyPrefabs[i].Type], _enemyPrefabs[i], 50);
         }
     }
 
@@ -82,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Enemy enemy = Instantiate(prefab);
-            enemy.transform.SetParent(_enemyPoolsParant.transform);
+            //enemy.transform.SetParent(_enemyPoolsParant.transform);
             pool.Release(enemy);
         }
     }
@@ -101,6 +101,7 @@ public class EnemySpawner : MonoBehaviour
         Enemy enemy = pool.Get();
         //enemy.transform.position = position;
         enemy.SetPosition(position);
+        enemy.SetTarget(_target);
     }
 
     private ObjectPool<Enemy> GetWeightRandomPrefabFromPool()
@@ -133,7 +134,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void ReturnEnemyToPool(Enemy enemy)
     {
-       _enemyPools[(int)enemy.type].Release(enemy);
+       _enemyPools[(int)enemy.Type].Release(enemy);
     }
 }
 
