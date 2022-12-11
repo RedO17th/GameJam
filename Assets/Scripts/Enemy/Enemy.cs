@@ -98,7 +98,8 @@ public class Enemy : MonoBehaviour
 
         EventManager.SendEnemyReturnToPool(this);
 
-        Instantiate(_goldHeap, transform.position, Quaternion.identity);
+        CoinHeap coinHeap = Instantiate(_goldHeap, transform.position, Quaternion.identity);
+        coinHeap.GoldCount = _price;
 
         yield return null;
     }

@@ -3,15 +3,13 @@ using static ToonyColorsPro.ShaderGenerator.Enums;
 
 public class CoinHeap : MonoBehaviour
 {
-    private int _goldCount;
-
-    public int GoldCount => _goldCount;
+    public int GoldCount;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            EventManager.SendGoldChanged(_goldCount);
+            EventManager.SendGoldChanged(GoldCount);
 
             Destroy(gameObject);
         }

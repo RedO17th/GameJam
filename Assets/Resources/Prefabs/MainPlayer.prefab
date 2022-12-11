@@ -73,7 +73,7 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
-  _wallet: 10000
+  _wallet: 100
   horInput: 0
   vertInput: 0
 --- !u!1 &7938687835908161317

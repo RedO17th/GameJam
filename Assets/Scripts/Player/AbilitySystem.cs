@@ -60,17 +60,17 @@ public class AbilitySystem : MonoBehaviour
 
     private void Update()
     {
-        if (!GameParameters.GameRunning) return;
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            _currentAbility = GetAbilityByType(AbilityType.CloseCombat);
-            EventManager.SendAbilityChanged(_currentAbility.AbilityType);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            _currentAbility = GetAbilityByType(AbilityType.MidasHand);
-            EventManager.SendAbilityChanged(_currentAbility.AbilityType);
-        }
+        //if (!GameParameters.GameRunning) return;
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    _currentAbility = GetAbilityByType(AbilityType.CloseCombat);
+        //    EventManager.SendAbilityChanged(_currentAbility.AbilityType);
+        //}
+        //if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    _currentAbility = GetAbilityByType(AbilityType.MidasHand);
+        //    EventManager.SendAbilityChanged(_currentAbility.AbilityType);
+        //}
     }
 
 }
