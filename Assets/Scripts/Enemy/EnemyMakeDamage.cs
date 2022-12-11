@@ -1,8 +1,6 @@
 using System.Collections;
 using UnityEngine;
 
-
-
 public class EnemyMakeDamage : MonoBehaviour
 {
     private int _damage;
