@@ -20,11 +20,7 @@ public class EnemyMove : MonoBehaviour
         Vector3 targetVector = (_target.position - transform.position).normalized;
         targetVector.y = 0;
 
-        if (targetVector == Vector3.zero)
-            return;
-
-        _characterController.Move(targetVector * _speed * Time.deltaTime);
-        Debug.Log(targetVector);
+        _characterController.SimpleMove(_speed * targetVector);
         _characterController.transform.rotation = Quaternion.LookRotation(targetVector);
     }
 

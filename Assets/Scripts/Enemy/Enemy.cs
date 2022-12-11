@@ -10,6 +10,8 @@ public enum EnemyType
 
 public class Enemy : MonoBehaviour
 {
+    public Transform target;
+
     [SerializeField] private EnemyType _type;
     [SerializeField] private int _weigth;
     [SerializeField] private int _price;
@@ -22,7 +24,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _speedBoostPercent = 0.15f;
 
     public EnemyType Type => _type;
-    public int Weight => _weigth;
+    public int Weight => Weight;
 
     private EnemyMove _enemyMove;
     private bool _invulnerable;
@@ -41,7 +43,6 @@ public class Enemy : MonoBehaviour
     public void SetPosition(Vector3 position)
     {
         transform.position = position;
-        Debug.Log(position);
     }
 
     [ContextMenu("TakeDamage")]
@@ -50,14 +51,14 @@ public class Enemy : MonoBehaviour
         if (_invulnerable)
             return;
 
-        //if (Order.TargetType == (int)Type)
-        //{
-        //    Die();
-        //}
-        //else
-        //{
-        //    Boost();
-        //}
+        if (Order.TargetType == (int)Type)
+        {
+            Die();
+        }
+        else
+        {
+            Boost();
+        }
     }
 
     private void Die()
