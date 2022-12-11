@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
-  _weigth: 0
+  _weight: 50
   _price: 25
   _damage: 60
   _makeDamage: {fileID: 2610717157605637032}
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 0.25
+  _passFramesCount: 5
+  _characterController: {fileID: 2610717156898219363}
 --- !u!143 &2610717156898219363
 CharacterController:
   m_ObjectHideFlags: 0
@@ -161,7 +163,7 @@ CharacterController:
   m_GameObject: {fileID: 2610717156898219372}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.25

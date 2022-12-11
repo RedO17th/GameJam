@@ -102,6 +102,7 @@ public class EnemySpawner : MonoBehaviour
         //enemy.transform.position = position;
         enemy.SetPosition(position);
         enemy.SetTarget(_target);
+        enemy.GetComponent<CharacterController>().enabled = true;
     }
 
     private ObjectPool<Enemy> GetWeightRandomPrefabFromPool()
@@ -134,7 +135,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void ReturnEnemyToPool(Enemy enemy)
     {
-       _enemyPools[(int)enemy.Type].Release(enemy);
+        enemy.GetComponent<CharacterController>().enabled = false;
+        _enemyPools[(int)enemy.Type].Release(enemy);
     }
 }
 

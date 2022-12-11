@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 222698038829544342, guid: d64b6cfe1724d0548aec98c9841d2237, type: 3}
       propertyPath: m_LocalScale.z
-      value: 6.266894
+      value: 9.454236
       objectReference: {fileID: 0}
     - target: {fileID: 222698038829544342, guid: d64b6cfe1724d0548aec98c9841d2237, type: 3}
       propertyPath: m_LocalPosition.x
@@ -403,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 222698038829544342, guid: d64b6cfe1724d0548aec98c9841d2237, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.42
+      value: -2.0138
       objectReference: {fileID: 0}
     - target: {fileID: 222698038829544342, guid: d64b6cfe1724d0548aec98c9841d2237, type: 3}
       propertyPath: m_LocalRotation.w
