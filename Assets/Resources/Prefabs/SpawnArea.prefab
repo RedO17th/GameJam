@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 222698038829544342}
   - component: {fileID: 222698038829544343}
   m_Layer: 0
-  m_Name: SpawnAreaPrefab
+  m_Name: SpawnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

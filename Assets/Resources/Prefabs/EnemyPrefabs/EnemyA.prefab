@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2610717156888494192}
   - component: {fileID: 2610717156888494198}
   - component: {fileID: 2610717156888494199}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2610717156898219360}
   - component: {fileID: 2610717156898219362}
   - component: {fileID: 2610717156898219363}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3a746a1a4601fa4b9c6f1b2aa1ad9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.25
+  _speed: 0.4
   _passFramesCount: 5
   _characterController: {fileID: 2610717156898219363}
 --- !u!143 &2610717156898219363
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 2610717157605637034}
   - component: {fileID: 2610717157605637032}
   - component: {fileID: 2610717157605637035}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DamageZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 2610717158617369117}
   - component: {fileID: 2610717158617369107}
   - component: {fileID: 2610717158617369116}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

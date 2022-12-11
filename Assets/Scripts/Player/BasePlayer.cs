@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
@@ -65,7 +63,7 @@ public class BasePlayer : MonoBehaviour
     {
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        _charController.Move(transform.rotation * move * Time.deltaTime * _speed);
+        _charController.Move(move * Time.deltaTime * _speed);
     }
 
     #endregion

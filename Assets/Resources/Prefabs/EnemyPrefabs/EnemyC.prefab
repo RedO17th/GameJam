@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3288418432356089192}
   - component: {fileID: 8782471972453150928}
   - component: {fileID: 866031327009798962}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 416015791287830857}
   - component: {fileID: 4271515378514019704}
   - component: {fileID: 6844560432288004517}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 8199462425316952985}
   - component: {fileID: 1751806896577071536}
   - component: {fileID: 7699590087755091045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DamageZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 2655903165963508148}
   - component: {fileID: 4459146419523660819}
   - component: {fileID: 8702441691379541129}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -124,13 +124,24 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetRandomSpawnPositionInZones()
     {
-        Transform zoneTransform = _spawnZones[Random.Range(0, _spawnZones.Length)].transform; 
+        Transform zoneTransform = _spawnZones[Random.Range(0, _spawnZones.Length)].transform;
         Vector3 pos = new Vector3();
         pos.x = Random.Range(0, zoneTransform.localScale.x) + zoneTransform.position.x - zoneTransform.localScale.x / 2;
         pos.z = Random.Range(0, zoneTransform.localScale.z) + zoneTransform.position.z - zoneTransform.localScale.z / 2;
-        pos.y = 1;
+        pos.y = 0;
 
-        return pos;
+        Collider[] colliders = Physics.OverlapSphere(pos, 0.5f);
+  
+        if (colliders.Length > 1)  
+        {
+            //Debug.Log("Что-то есть");
+            return GetRandomSpawnPositionInZones();
+        }
+        else
+        {
+            //Debug.Log("Ничего нет");
+            return pos;
+        }  
     }
 
     private void ReturnEnemyToPool(Enemy enemy)
