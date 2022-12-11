@@ -72,6 +72,11 @@ public class UIManager : MonoBehaviour
     public event Action OnPlayerDeath;
     public static event Action OnEnemyDeath;
 
+    private void OnEnable()
+    {
+        EventManager.OnGameOver.AddListener(ShowDeathPanel);
+        EventManager.OnGoldChanged.AddListener(ChangeScores);
+    }
 
     private void Awake()
     {
@@ -84,9 +89,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        OnGoldChanged += ChangeScores;
+        //OnGoldChanged += ChangeScores;
         OnAbilityUsed += UseAbility;
-        OnPlayerDeath += ShowDeathPanel;
+        //OnPlayerDeath += ShowDeathPanel;
         OrderManager.OnOrderChanged += ChangeOrder;
 
         ChangeFireType(_activeFireType);
@@ -101,39 +106,19 @@ public class UIManager : MonoBehaviour
             Pause();
         }
 
-        //Тесты
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            OnGoldChanged?.Invoke(10);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            OnGoldChanged?.Invoke(-10);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            OnAbilityUsed?.Invoke(new AbilityData(AbilityType.Range, 0.3f));
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            OnAbilityUsed?.Invoke(new AbilityData(AbilityType.Melee, 0.3f));
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnAbilityUsed?.Invoke(new AbilityData(AbilityType.Grenade, 1.0f));
-        }
-        if (Input.GetKeyDown(KeyCode.S)) 
-        {
-            OnPlayerDeath?.Invoke();
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OnEnemyDeath?.Invoke();
-        }
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    OnAbilityUsed?.Invoke(new AbilityData(AbilityType.MidasHand, 0.3f));
+        //}
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    OnAbilityUsed?.Invoke(new AbilityData(AbilityType.CloseCombat, 0.3f));
+        //}
     }
 
     private void ShowDeathPanel() 
     {
+        PauseManager.Pause();
         _gameOverPanel.SetActive(true);
         _textDeathPanelScore.SetText(_highScore.ToString());
         SetUI(false);
@@ -143,6 +128,10 @@ public class UIManager : MonoBehaviour
     private void ChangeScores(int goldChange) 
     {
         _goldAmount += goldChange;
+        if(_goldAmount < 0)
+        {
+            _goldAmount = 0;
+        }
         if (goldChange > 0)
         {
             _totalEarned += Math.Abs(goldChange);
@@ -169,25 +158,25 @@ public class UIManager : MonoBehaviour
     {
         switch (abilityData.GetAbilityType())
         {
-            case AbilityType.Range:
+            case AbilityType.MidasHand:
                 if (_activeFireType != abilityData.GetAbilityType())
                 {
                     StartCoroutine(SetAbilityToCooldown(_imageMeleeAttack, abilityData.GetCooldown()));
                 }
-                ChangeFireType(AbilityType.Range);
+                ChangeFireType(AbilityType.MidasHand);
                 break;
 
-            case AbilityType.Melee:
+            case AbilityType.CloseCombat:
                 if (_activeFireType != abilityData.GetAbilityType())
                 {
                     StartCoroutine(SetAbilityToCooldown(_imageRangeAttack, abilityData.GetCooldown()));
                 }
-                ChangeFireType(AbilityType.Melee);
+                ChangeFireType(AbilityType.CloseCombat);
                 break;
 
-            case AbilityType.Grenade:
-                StartCoroutine(SetAbilityToCooldown(_imageGrenade, abilityData.GetCooldown()));
-                break;
+            //case AbilityType.Grenade:
+            //    StartCoroutine(SetAbilityToCooldown(_imageGrenade, abilityData.GetCooldown()));
+            //    break;
         }
     }
 
@@ -206,7 +195,7 @@ public class UIManager : MonoBehaviour
     {
         _activeFireType = abilityType;
 
-        if (abilityType == AbilityType.Range)
+        if (abilityType == AbilityType.MidasHand)
         {
             _imageRangeAttack.rectTransform.localScale = new Vector3(1, 1, 1);
             _imageMeleeAttack.rectTransform.localScale = new Vector3(0.8f, 0.8f, 1);

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
 {
+    [SerializeField]  private AbilitySystem _abilitySystem = null;
+
+    [Space]
     [Range(0.5f, 5f)]
     [SerializeField] private float _speed = 1f;
 
@@ -11,16 +14,16 @@ public class BasePlayer : MonoBehaviour
 
     [SerializeField] private LayerMask _groundMask;
 
-    public event Action OnUseArmament;
+    [SerializeField] private int _wallet = 100;
+
+    public event Action OnUseAbility;
 
     private CharacterController _charController = null;
-    private AbilitySystem _abilitySystem = null;
 
 
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
-        _abilitySystem = GetComponent<AbilitySystem>();
     }
 
     private void OnEnable()
@@ -36,7 +39,7 @@ public class BasePlayer : MonoBehaviour
 
     void Update()
     {
-        UseArmament();
+        UseAbility();
 
         Rotation();
         Movement();
@@ -68,9 +71,24 @@ public class BasePlayer : MonoBehaviour
 
     #endregion
 
-    private void UseArmament()
+    private void UseAbility()
     {
-        if (Input.GetMouseButtonDown(0)) OnUseArmament?.Invoke();
-    }    
+        if (Input.GetMouseButtonDown(0))
+        {
+            TakeDamage(_abilitySystem.AbilityPrice);
+            OnUseAbility?.Invoke();
+        }
+    }   
+    
+    public void TakeDamage(int damage)
+    {
+        _wallet -= damage;
+        EventManager.SendGoldChanged(-damage);
+        if(_wallet <= 0)
+        {
+            _wallet = 0;
+            EventManager.SendGameOver();
+        }
+    }
 }
  

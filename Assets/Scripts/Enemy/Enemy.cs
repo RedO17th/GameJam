@@ -54,14 +54,14 @@ public class Enemy : MonoBehaviour
         if (_invulnerable)
             return;
 
-        //if (Order.TargetType == (int)Type)
-        //{
-        //    Die();
-        //}
-        //else
-        //{
-        //    Boost();
-        //}
+        if (OrderManager.Order == (int)Type)
+        {
+            Die();
+        }
+        else
+        {
+            Boost();
+        }
     }
 
     private void Die()

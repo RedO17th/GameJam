@@ -1,43 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using UnityEngine;
 
+public enum AbilityType { None = -1, MidasHand, CloseCombat }
+
 public class AbilitySystem : MonoBehaviour
 {
-    [SerializeField] private Transform _armaLaunchPosition;
-    [SerializeField] private BaseArmaProjectile _armaProjectilePrefab;
+    [SerializeField] private AbilityType _standartAbility = AbilityType.None;
+
+    [SerializeField] private List<BaseAbility> _abilities;
 
     private BasePlayer _player = null;
 
-    private List<BaseArmament> _armaments = new List<BaseArmament>();
-    private BaseArmament _currentArmament = null;
+    private BaseAbility _currentAbility = null;
+
+    public int AbilityPrice => _currentAbility.Price;
 
     public void Initialize(BasePlayer player)
     {
         _player = player;
-        _player.OnUseArmament += UseArmament;
+        _player.OnUseAbility += UseArmament;
 
-        _armaments.Add(new MidasHand());
-        _currentArmament = _armaments[0];
+        InitializeAbility();
+        SetStandartAbility();
+    }
+
+    private void InitializeAbility()
+    {
+        foreach (var a in _abilities)
+            a.Initialize(this);
+    }
+    private void SetStandartAbility()
+    {
+        _currentAbility = GetAbilityByType(_standartAbility);
+    }
+
+    private BaseAbility GetAbilityByType(AbilityType type)
+    {
+        foreach (var ability in _abilities)
+        {
+            if(ability.AbilityType == type)
+                return ability;
+        }
+        return null;
     }
 
     public void Deinitialize()
     {
-        _armaments.Clear();
-        _currentArmament = null;
+        _currentAbility = null;
+        _abilities.Clear();
 
-        _player.OnUseArmament -= UseArmament;
+        _player.OnUseAbility -= UseArmament;
         _player = null;
     }
 
-    private void UseArmament()
-    {
-        _currentArmament?.Use();
-
-        var prjectile = Instantiate(_armaProjectilePrefab, _armaLaunchPosition.position, _armaLaunchPosition.rotation);
-            prjectile.Launch();
-    }
+    private void UseArmament() => _currentAbility?.Use();
 
 
 

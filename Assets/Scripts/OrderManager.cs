@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,22 +13,26 @@ public class OrderManager : MonoBehaviour
 
     private void Awake()
     {
-        SetNewOrder();
+        SetStartOrder();
     }
 
-    void Start()
+    private void OnEnable()
     {
-        UIManager.OnEnemyDeath += SetNewOrder;
+        EventManager.OnEnemyKilled.AddListener(SetNewOrder);
     }
 
-    
-    void Update()
+    //void Start()
+    //{
+    //    UIManager.OnEnemyDeath += SetNewOrder;
+    //}
+
+    private void SetStartOrder()
     {
-
+        Order = Random.Range(0, MaxOrder);
+        OnOrderChanged?.Invoke(Order);
     }
 
-
-    private void SetNewOrder()
+    private void SetNewOrder(Enemy enemy)
     {
         Order = Random.Range(0, MaxOrder);
         OnOrderChanged?.Invoke(Order);

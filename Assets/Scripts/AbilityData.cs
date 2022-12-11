@@ -25,9 +25,9 @@ public class AbilityData
     }
 }
 
-public enum AbilityType
-{
-    Range,
-    Melee,
-    Grenade
-}
+//public enum AbilityType
+//{
+//    Range,
+//    Melee,
+//    Grenade
+//}
