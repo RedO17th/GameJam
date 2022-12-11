@@ -9,7 +9,7 @@ public class OrderManager : MonoBehaviour
     //«ахардкоженна€ константа размера типов
     private const int MaxOrder = 3;
 
-    public static event Action<int> OnOrderChanged;
+    public static event Action OnOrderChanged;
 
     private void Awake()
     {
@@ -29,12 +29,12 @@ public class OrderManager : MonoBehaviour
     private void SetStartOrder()
     {
         Order = Random.Range(0, MaxOrder);
-        OnOrderChanged?.Invoke(Order);
+        OnOrderChanged?.Invoke();
     }
 
     private void SetNewOrder(Enemy enemy)
     {
         Order = Random.Range(0, MaxOrder);
-        OnOrderChanged?.Invoke(Order);
+        OnOrderChanged?.Invoke();
     }
 }

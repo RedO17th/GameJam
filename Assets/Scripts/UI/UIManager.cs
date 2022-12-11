@@ -87,11 +87,10 @@ public class UIManager : MonoBehaviour
         _currentDisplayedOrder = -1;
     }
 
-
     void Start()
     {
         OrderManager.OnOrderChanged += ChangeOrder;
-
+        ChangeOrder();
         ChangeFireType(_activeFireType);
         ChangeScores(0);
     }
@@ -193,8 +192,9 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void ChangeOrder(int newOrder)
+    private void ChangeOrder()
     {
+        int newOrder = OrderManager.Order;
         if (newOrder != _currentDisplayedOrder)
         {
             _currentDisplayedOrder = newOrder;

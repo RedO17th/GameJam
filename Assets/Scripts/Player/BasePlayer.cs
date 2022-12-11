@@ -17,6 +17,7 @@ public class BasePlayer : MonoBehaviour
     [SerializeField] private int _wallet = 100;
 
     public event Action OnUseAbility;
+    public Vector3 Position => transform.position;
 
     private CharacterController _charController = null;
 
@@ -29,6 +30,7 @@ public class BasePlayer : MonoBehaviour
     private void OnEnable()
     {
         _abilitySystem.Initialize(this);
+        EventManager.OnEnemyKilled.AddListener(EnemyKilled);
     }
 
     private void OnDisable()
@@ -89,6 +91,17 @@ public class BasePlayer : MonoBehaviour
             _wallet = 0;
             EventManager.SendGameOver();
         }
+    }
+
+    private void EnemyKilled(Enemy enemy)
+    {
+        AddGold(enemy.Price);
+    }
+
+    private void AddGold(int value)
+    {
+        _wallet += value;
+        EventManager.SendGoldChanged(value);
     }
 }
  

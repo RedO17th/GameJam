@@ -5,7 +5,7 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    [SerializeField] private BasePlayer _target;
     [SerializeField] private GameObject _enemyPoolsParant;
     [SerializeField] private float _spawnInterval;
     [SerializeField] private GameObject[] _spawnZones;

@@ -8,7 +8,8 @@ public class EnemyMove : MonoBehaviour
     [SerializeField] private int _passFramesCount = 5;
 
     [SerializeField] private CharacterController _characterController;
-    private Transform _target;
+    
+    private BasePlayer _target;
 
     private float _defaultSpeed;
 
@@ -25,7 +26,7 @@ public class EnemyMove : MonoBehaviour
         if (_target == null)
             return;
 
-        Vector3 targetVector = (_target.position - transform.position).normalized;
+        Vector3 targetVector = (_target.Position - transform.position).normalized;
         targetVector.y = 0;
 
         if (targetVector.Equals(Vector3.zero))
@@ -40,7 +41,7 @@ public class EnemyMove : MonoBehaviour
         _passedFrames = 0;
     }
 
-    public void SetTarget(Transform target)
+    public void SetTarget(BasePlayer target)
     {
         _target = target;
     }

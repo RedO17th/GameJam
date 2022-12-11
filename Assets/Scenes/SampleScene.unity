@@ -314,8 +314,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3485292265520679566, guid: 5c038e77d53d6fb4daef65b19eaad8b9, type: 3}
-      propertyPath: _abilitySystem
-      value: 
+      propertyPath: _wallet
+      value: 10000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c038e77d53d6fb4daef65b19eaad8b9, type: 3}
@@ -3755,7 +3755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90861728a074cab418f41a12c1de897e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 0}
+  _target: {fileID: 1595138611}
   _enemyPoolsParant: {fileID: 1669754207}
   _spawnInterval: 1
   _spawnZones:
@@ -4172,6 +4172,17 @@ RectTransform:
   m_AnchoredPosition: {x: 150.00002, y: -12.499981}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1595138611 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3485292265520679566, guid: 5c038e77d53d6fb4daef65b19eaad8b9, type: 3}
+  m_PrefabInstance: {fileID: 25413590}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a0b67602f77f04e9cfb071b47c02aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1601818181
 GameObject:
   m_ObjectHideFlags: 0

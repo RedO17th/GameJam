@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
 
     public EnemyType Type => _type;
     public int Weight => _weight;
+    public int Price => _price;
 
     private EnemyMove _enemyMove;
     private bool _invulnerable;
@@ -38,9 +39,9 @@ public class Enemy : MonoBehaviour
         _enemyMove.SetSpeedToDefault();
     }
 
-    public void SetTarget(Transform targetTransform)
+    public void SetTarget(BasePlayer target)
     {
-        _enemyMove.SetTarget(targetTransform);
+        _enemyMove.SetTarget(target);
     }
 
     public void SetPosition(Vector3 position)
@@ -67,7 +68,8 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         EventManager.SendEnemyKilled(this);
-        StartCoroutine(DieCoroutine());
+
+        //StartCoroutine(DieCoroutine());
     }
 
     IEnumerator DieCoroutine()
@@ -77,7 +79,7 @@ public class Enemy : MonoBehaviour
 
     private void Boost()
     {
-        StartCoroutine(BoostCoroutine());
+        //StartCoroutine(BoostCoroutine());
     }
 
     IEnumerator BoostCoroutine()
