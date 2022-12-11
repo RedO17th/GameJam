@@ -5,42 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject _menuPanel;
 
     [SerializeField]
-    private AudioSource _audioSource;
-
-    [SerializeField]
-    private AudioClip _hideMenuClip;
-
-
-    private IEnumerator PlayEnumerator()
-    {
-        _audioSource.PlayOneShot(_hideMenuClip);
-        yield return new WaitForSeconds(0.4f);
-        SceneManager.LoadScene("MainGame");
-    }
+    private GameObject _creditsPanel;
 
     public void Play()
     {
-        StartCoroutine(PlayEnumerator());
-    }
-
-    private IEnumerator CreditsEnumerator()
-    {
-        _audioSource.PlayOneShot(_hideMenuClip);
-        yield return new WaitForSeconds(0.4f);
-        SceneManager.LoadScene("Credits");
+        SceneManager.LoadScene(1);
     }
 
     public void Credits()
     {
-        StartCoroutine(CreditsEnumerator());
+        _menuPanel.SetActive(!_menuPanel.activeInHierarchy);
+        _creditsPanel.SetActive(!_creditsPanel.activeInHierarchy);
     }
 
 
     public void Exit()
     {
-        _audioSource.PlayOneShot(_hideMenuClip);
         Application.Quit();
     }
 }
