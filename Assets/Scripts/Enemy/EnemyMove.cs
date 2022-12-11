@@ -4,10 +4,15 @@ public class EnemyMove : MonoBehaviour
 {
     [SerializeField] float _speed = 5;
 
+    [Space]
+    [SerializeField] private int _passFramesCount = 5;
+
     private CharacterController _characterController;
     private Transform _target;
 
     private float _defaultSpeed;
+
+    private int _passedFrames = 0;
 
     private void Awake()
     {
@@ -17,6 +22,12 @@ public class EnemyMove : MonoBehaviour
 
     private void Update()
     {
+        if (_passedFrames < _passFramesCount)
+        {
+            _passedFrames++;
+            return;
+        }
+
         if (_target == null)
             return;
 
@@ -28,6 +39,11 @@ public class EnemyMove : MonoBehaviour
 
         _characterController.SimpleMove(_speed * targetVector);
         _characterController.transform.rotation = Quaternion.LookRotation(targetVector);
+    }
+
+    private void OnDisable()
+    {
+        _passedFrames = 0;
     }
 
     public void SetTarget(Transform target)
