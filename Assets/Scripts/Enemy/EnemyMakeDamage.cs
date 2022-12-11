@@ -34,6 +34,8 @@ public class EnemyMakeDamage : MonoBehaviour
         while(_damaging)
         {
             yield return new WaitForSeconds(0.5f);
+
+            if (GameParameters.GameRunning)
             player.TakeDamage(_damage);
         }
     }

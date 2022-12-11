@@ -18,6 +18,7 @@ public class BasePlayer : MonoBehaviour
 
     public event Action OnUseAbility;
 
+    public int Wallet => _wallet;
     public Vector3 Position => transform.position;
 
     private CharacterController _charController = null;
@@ -42,6 +43,8 @@ public class BasePlayer : MonoBehaviour
 
     void Update()
     {
+        if (!GameParameters.GameRunning) return;
+
         UseAbility();
 
         Rotation();

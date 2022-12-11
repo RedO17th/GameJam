@@ -9,10 +9,12 @@ public static class PauseManager
         if (_pauseStatus)
         {
             Time.timeScale = 1f;
+            GameParameters.GameRunning = true;
         }
         else
         {
             Time.timeScale = 0f;
+            GameParameters.GameRunning = false;
         }
 
         _pauseStatus = !_pauseStatus;

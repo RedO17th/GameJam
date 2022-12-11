@@ -60,6 +60,7 @@ public class AbilitySystem : MonoBehaviour
 
     private void Update()
     {
+        if (!GameParameters.GameRunning) return;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _currentAbility = GetAbilityByType(AbilityType.CloseCombat);

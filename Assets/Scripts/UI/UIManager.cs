@@ -49,6 +49,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private Image _imageOrder;
+    [SerializeField]
+    private BasePlayer _player;
 
     [SerializeField]
     private Sprite[] _orderSprites;
@@ -75,14 +77,23 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        _highScore = 0;
-        _totalEarned = 0;
-        _goldAmount = 100;
         _currentDisplayedOrder = -1;
+    
     }
 
     void Start()
     {
+        _highScore = 0;
+        _highScore = PlayerPrefs.GetInt("highscore", 0);
+        if(_highScore < 0)
+        {
+            _highScore = 0;
+        }
+        ChangeHighScore(_highScore);
+        _totalEarned = 0;
+        _goldAmount = _player.Wallet;
+        Time.timeScale = 1;
+        GameParameters.GameRunning = true;
         OrderManager.OnOrderChanged += ChangeOrder;
         OrderManager.SetStartOrder();
         ChangeOrder();
@@ -101,6 +112,8 @@ public class UIManager : MonoBehaviour
 
     private void ShowDeathPanel() 
     {
+        PlayerPrefs.SetInt("highscore", _highScore);
+
         PauseManager.Pause();
         _gameOverPanel.SetActive(true);
         _textDeathPanelScore.SetText(_highScore.ToString());
@@ -234,7 +247,6 @@ public class UIManager : MonoBehaviour
 
     public void CallRestart()
     {
-        PauseManager.Pause();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

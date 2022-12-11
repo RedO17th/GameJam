@@ -23,6 +23,7 @@ public class EnemyMove : MonoBehaviour
 
     private void Update()
     {
+        if (!GameParameters.GameRunning) return;
         if (_target == null)
             return;
 
