@@ -48,6 +48,9 @@ public class UIManager : MonoBehaviour
     private Image _imageGrenade;
 
     [SerializeField]
+    private Image _imageOrder;
+
+    [SerializeField]
     private List<Sprite> _orderSprites = new List<Sprite>();
 
     private AbilityType _activeFireType;
@@ -60,16 +63,14 @@ public class UIManager : MonoBehaviour
 
     private int _currentDisplayedOrder;
 
-    public event Action OnRestarted;
-
-    public event Action OnPaused;
+    public static event Action OnRestarted;
 
 
     //Для тестов
     public event Action<int> OnGoldChanged;
     public event Action<AbilityData> OnAbilityUsed;
     public event Action OnPlayerDeath;
-    public event Action OnEnemyDeath;
+    public static event Action OnEnemyDeath;
 
 
     private void Awake()
@@ -86,9 +87,8 @@ public class UIManager : MonoBehaviour
         OnGoldChanged += ChangeScores;
         OnAbilityUsed += UseAbility;
         OnPlayerDeath += ShowDeathPanel;
-        OnEnemyDeath += ChangeOrder;
+        OrderManager.OnOrderChanged += ChangeOrder;
 
-        ChangeOrder();
         ChangeFireType(_activeFireType);
         ChangeScores(0);
     }
@@ -126,7 +126,7 @@ public class UIManager : MonoBehaviour
         {
             OnPlayerDeath?.Invoke();
         }
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             OnEnemyDeath?.Invoke();
         }
@@ -219,29 +219,12 @@ public class UIManager : MonoBehaviour
     }
 
 
-    private void ChangeOrder()
+    private void ChangeOrder(int newOrder)
     {
-        if (OrderManager.Order != _currentDisplayedOrder)
+        if (newOrder != _currentDisplayedOrder)
         {
-            switch (OrderManager.Order)
-            {
-                case 0:
-                    {
-                        _imageOrder.sprite = ;
-                        break;
-                    }
-                case 1:
-                    {
-                        _imageOrder.sprite = ;
-                        break;
-                    }
-
-                case 2:
-                    {
-                        _imageOrder.sprite = ;
-                        break;
-                    }
-            }
+            _currentDisplayedOrder = newOrder;
+            _imageOrder.sprite = _orderSprites[newOrder];
         }
     }
 
@@ -256,7 +239,6 @@ public class UIManager : MonoBehaviour
     public void Pause()
     {
         PauseManager.Pause();
-        Debug.Log(PauseManager._pauseStatus);
 
         if (_rulesPanel.activeInHierarchy)
         {
