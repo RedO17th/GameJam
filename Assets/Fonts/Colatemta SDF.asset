@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!28 &-4087622671228054185
+--- !u!28 &-7759658015231947199
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: Colatemta SDF
   m_EditorClassIdentifier: 
   hashCode: 1510135961
-  material: {fileID: 398194872651540799}
+  material: {fileID: 8553474267084860286}
   materialHashCode: -1004444775
   m_Version: 1.1.0
   m_SourceFontFileGUID: 93181daaf00095d45927def1a7d8cadd
@@ -4613,7 +4613,7 @@ MonoBehaviour:
     m_GlyphIndex: 281
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: -4087622671228054185}
+  - {fileID: -7759658015231947199}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -5970,7 +5970,7 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!21 &398194872651540799
+--- !u!21 &8553474267084860286
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -6003,7 +6003,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: -4087622671228054185}
+        m_Texture: {fileID: -7759658015231947199}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
