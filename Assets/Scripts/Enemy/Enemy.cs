@@ -5,7 +5,8 @@ public enum EnemyType
 {
     TypeA,
     TypeB,
-    TypeC
+    TypeC,
+    TypeD
 }
 
 public class Enemy : MonoBehaviour
@@ -20,6 +21,13 @@ public class Enemy : MonoBehaviour
     [Space]
     [SerializeField] private float _invulnerableTime = 0.5f;
     [SerializeField] private float _speedBoostPercent = 0.15f;
+
+    [Space]
+    [SerializeField] private Renderer _enemyRenderer;
+    [SerializeField] private Material _deadMaterial;
+    [SerializeField] private ParticleSystem _deadEffect;
+    [SerializeField] private CoinHeap _goldHeap;
+    [SerializeField] private Animator _animator;
 
     public EnemyType Type => _type;
     public int Weight => _weight;
@@ -65,21 +73,39 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    [ContextMenu("Die")]
     private void Die()
     {
-        EventManager.SendEnemyKilled(this);
 
-        //StartCoroutine(DieCoroutine());
+        StartCoroutine(DieCoroutine());
     }
 
     IEnumerator DieCoroutine()
     {
+        EventManager.SendEnemyKilled(this);
+
+        _enemyMove.enabled = false;
+        _animator.enabled = false;
+
+        _enemyRenderer.material = _deadMaterial;
+
+        yield return new WaitForSeconds(0.5f);
+
+        _enemyRenderer.enabled = false;
+        _deadEffect.Play();
+
+        yield return new WaitForSeconds(0.2f);
+
+        EventManager.SendEnemyReturnToPool(this);
+
+        Instantiate(_goldHeap, transform.position, Quaternion.identity);
+
         yield return null;
     }
 
     private void Boost()
     {
-        //StartCoroutine(BoostCoroutine());
+        StartCoroutine(BoostCoroutine());
     }
 
     IEnumerator BoostCoroutine()
