@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
 {
+    [SerializeField]  private AbilitySystem _abilitySystem = null;
+
+    [Space]
     [Range(0.5f, 5f)]
     [SerializeField] private float _speed = 1f;
 
@@ -16,13 +19,11 @@ public class BasePlayer : MonoBehaviour
     public event Action OnUseArmament;
 
     private CharacterController _charController = null;
-    private AbilitySystem _abilitySystem = null;
 
 
     private void Awake()
     {
         _charController = GetComponent<CharacterController>();
-        _abilitySystem = GetComponent<AbilitySystem>();
     }
 
     private void OnEnable()
