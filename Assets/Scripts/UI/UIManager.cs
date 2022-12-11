@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour
     private Image _imageOrder;
 
     [SerializeField]
-    private List<Sprite> _orderSprites = new List<Sprite>();
+    private Sprite[] _orderSprites;
 
     private AbilityType _activeFireType;
 
@@ -90,6 +90,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         OrderManager.OnOrderChanged += ChangeOrder;
+        OrderManager.SetStartOrder();
         ChangeOrder();
         ChangeFireType(_activeFireType);
         ChangeScores(0);
@@ -239,6 +240,7 @@ public class UIManager : MonoBehaviour
 
     public void CallRestart()
     {
-        SceneManager.LoadScene(2);
+        PauseManager.Pause();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

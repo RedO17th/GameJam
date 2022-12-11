@@ -59,6 +59,7 @@ MonoBehaviour:
   _imageGrenade: {fileID: 0}
   _imageOrder: {fileID: 0}
   _orderSprites:
-  - {fileID: 21300000, guid: e4951c9ddc167b24d8dbd3a11dc25062, type: 3}
-  - {fileID: 21300000, guid: 0973a34a0791da74c929b23c9e9c9395, type: 3}
-  - {fileID: 21300000, guid: 6d42879c53668c5499ec28c74467e06b, type: 3}
+  - {fileID: 21300000, guid: b705ec2d357e7c5438e54dec581e9f73, type: 3}
+  - {fileID: 21300000, guid: a8282261538fc984eaef2b7dcd732037, type: 3}
+  - {fileID: 21300000, guid: 3a88405a2695bb64d899ffd1cecd753e, type: 3}
+  - {fileID: 21300000, guid: d43b2b8cf63db0448a7b835969050087, type: 3}

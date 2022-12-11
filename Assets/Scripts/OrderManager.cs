@@ -7,29 +7,18 @@ public class OrderManager : MonoBehaviour
     public static int Order { get; private set; }
 
     //«ахардкоженна€ константа размера типов
-    private const int MaxOrder = 3;
+    private const int MaxOrder = 4;
 
     public static event Action OnOrderChanged;
-
-    private void Awake()
-    {
-        SetStartOrder();
-    }
 
     private void OnEnable()
     {
         EventManager.OnEnemyKilled.AddListener(SetNewOrder);
     }
 
-    //void Start()
-    //{
-    //    UIManager.OnEnemyDeath += SetNewOrder;
-    //}
-
-    private void SetStartOrder()
+    public static void SetStartOrder()
     {
         Order = Random.Range(0, MaxOrder);
-        OnOrderChanged?.Invoke();
     }
 
     private void SetNewOrder(Enemy enemy)
