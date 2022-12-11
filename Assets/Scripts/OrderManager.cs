@@ -11,6 +11,9 @@ public class OrderManager : MonoBehaviour
     //Захардкоженная константа размера типов
     private const int MaxOrder = 3;
 
+    public event Action<int> OnOrderChanged;
+
+    //Для теста
     public event Action OnEnemyDeath;
 
     private void Awake()
@@ -26,6 +29,7 @@ public class OrderManager : MonoBehaviour
     
     void Update()
     {
+        //Для теста
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
             OnEnemyDeath?.Invoke();
@@ -37,5 +41,6 @@ public class OrderManager : MonoBehaviour
     private void SetNewOrder()
     {
         Order = Random.Range(0, MaxOrder);
+        OnOrderChanged?.Invoke(Order);
     }
 }
