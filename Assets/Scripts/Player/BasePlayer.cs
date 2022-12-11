@@ -5,6 +5,8 @@ public class BasePlayer : MonoBehaviour
 {
     [SerializeField]  private AbilitySystem _abilitySystem = null;
 
+    [SerializeField] private Animator _aController = null;
+
     [Space]
     [Range(0.5f, 5f)]
     [SerializeField] private float _speed = 1f;
@@ -23,6 +25,10 @@ public class BasePlayer : MonoBehaviour
 
     private CharacterController _charController = null;
 
+    public float horInput = 0f;
+    public float vertInput = 0f;
+
+    private bool _canShoot = false;
 
     private void Awake()
     {
@@ -43,12 +49,16 @@ public class BasePlayer : MonoBehaviour
 
     void Update()
     {
+
         if (!GameParameters.GameRunning) return;
 
         UseAbility();
 
         Rotation();
         Movement();
+
+        _aController.SetFloat("Vertical", vertInput);
+        _aController.SetFloat("Horizontal", horInput);
     }
 
     #region Movement
@@ -70,7 +80,10 @@ public class BasePlayer : MonoBehaviour
     }
     private void Movement()
     {
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        horInput = Input.GetAxis("Horizontal");
+        vertInput = Input.GetAxis("Vertical");
+
+        Vector3 move = new Vector3(horInput, 0, vertInput);
 
         _charController.Move(move * Time.deltaTime * _speed);
     }
@@ -81,8 +94,15 @@ public class BasePlayer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            _aController.SetBool("Shoot", true);
+
             TakeDamage(_abilitySystem.AbilityPrice);
             OnUseAbility?.Invoke();
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            _aController.SetBool("Shoot", false);
         }
     }   
     
