@@ -26,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        EventManager.OnEnemyKilled.AddListener(ReturnEnemyToPool);
+        EventManager.OnEnemyReturnToPool.AddListener(ReturnEnemyToPool);
 
     }
 
