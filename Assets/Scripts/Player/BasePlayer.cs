@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
 {
-    [SerializeField]  private AbilitySystem _abilitySystem = null;
+    [SerializeField] private GameObject _cameraController;
+    [SerializeField] private AbilitySystem _abilitySystem = null;
 
     [SerializeField] private Animator _aController = null;
 
@@ -83,7 +84,17 @@ public class BasePlayer : MonoBehaviour
 
         Vector3 move = new Vector3(horInput, 0, vertInput);
 
-        _charController.Move(move * Time.deltaTime * _speed);
+        Vector3 gravity = Vector3.zero;
+        if(transform.position.y > 0)
+        {
+            gravity = Vector3.down;
+        }
+        else
+        {
+            gravity = Vector3.zero;
+        }
+        
+        _charController.Move(_cameraController.transform.rotation * (move + gravity) * Time.deltaTime * _speed);
     }
 
     #endregion

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6113923317094234898}
   - component: {fileID: 7167161359173301431}
   - component: {fileID: 4941055728212164733}
+  - component: {fileID: 2951218711849067041}
   m_Layer: 0
   m_Name: Hay
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &2951218711849067041
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6886800364982591912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8552134717624371188, guid: d4783343a31537d4a8a278958c297a7a, type: 3}

@@ -7,10 +7,10 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private BasePlayer _player;
     [SerializeField] private GameObject _enemyPoolsParant;
-    [SerializeField] private float _spawnInterval, _spawnIntervalMax, _stepTime;
+    [SerializeField] private float _spawnInterval, _spawnIntervalMax = 3f, _stepTime = 0.1f;
 
     [SerializeField] private GameObject[] _spawnZones;
-    [SerializeField] private int _stepGold;
+    [SerializeField] private int _stepGold = 50;
 
     private Enemy[] _enemyPrefabs;
     private ObjectPool<Enemy>[] _enemyPools;
@@ -104,7 +104,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnRandomEnemyFromPool()
     {
-        while (true)//game running
+        while (GameParameters.GameRunning)
         {
             SpawnPrefabFromPool(GetWeightRandomPrefabFromPool(), GetRandomSpawnPositionInZones()); //GetRandomSpawnPosition(_arenaWidth, _arenaHeight));
             yield return new WaitForSeconds(_spawnInterval);

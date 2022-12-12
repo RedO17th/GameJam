@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8720420236255727916}
   - component: {fileID: 5668610905700146825}
   - component: {fileID: 7588007765746477635}
+  - component: {fileID: 5992003392448216414}
   m_Layer: 0
   m_Name: Scull
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5992003392448216414
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236794186403597206}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6531525120215824829, guid: 3bf24ab36f933c640bb99df6e6453f33, type: 3}

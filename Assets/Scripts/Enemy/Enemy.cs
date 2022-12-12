@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
 
     [Space]
     [SerializeField] private Renderer _enemyRenderer;
-    [SerializeField] private Material _deadMaterial;
+    [SerializeField] private Material _deadMaterial, _defaultMaterial;
     [SerializeField] private ParticleSystem _deadEffect;
     [SerializeField] private CoinHeap _goldHeap;
     [SerializeField] private Animator _animator;
@@ -45,6 +45,10 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         _makeDamage.enabled = true;
+        _enemyMove.enabled = true;
+        _animator.enabled = true;
+        _enemyRenderer.material = _defaultMaterial;
+        _enemyRenderer.enabled = true;
     }
 
     private void OnDisable()

@@ -59,6 +59,7 @@ MonoBehaviour:
   _speedBoostPercent: 0.15
   _enemyRenderer: {fileID: 350486374466923903}
   _deadMaterial: {fileID: 2100000, guid: 05f1f9ce262bff84e9f39673b293d093, type: 2}
+  _defaultMaterial: {fileID: 2100000, guid: 051c0a7534a08494dad356bfb68b6fd1, type: 2}
   _deadEffect: {fileID: 3483330282980969795}
   _goldHeap: {fileID: 1338143284, guid: c75f920b485973740a27626819359273, type: 3}
   _animator: {fileID: 1240586876}
@@ -75,7 +76,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1.3
-  _passFramesCount: 5
   _characterController: {fileID: 866031327009798962}
 --- !u!143 &866031327009798962
 CharacterController:
@@ -5062,6 +5062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d912391c2b513a5479b10f5f42b924dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackCooldown: 0.5
 --- !u!65 &7699590087755091045
 BoxCollider:
   m_ObjectHideFlags: 0

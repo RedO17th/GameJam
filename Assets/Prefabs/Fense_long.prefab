@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7118870713270537659}
   - component: {fileID: 6153206435948986910}
   - component: {fileID: 8250704395196692180}
+  - component: {fileID: 17460117190295091}
   m_Layer: 0
   m_Name: Fense_long
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &17460117190295091
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7602251675593365249}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -8678823145569952518, guid: f3dbae81b479da3408600581ef07a71e, type: 3}

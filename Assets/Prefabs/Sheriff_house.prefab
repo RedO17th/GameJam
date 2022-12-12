@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7864566133732697198}
   - component: {fileID: 6524403798012292043}
   - component: {fileID: 9038620987807735553}
+  - component: {fileID: 1703070549865343877}
   m_Layer: 0
   m_Name: Sheriff_house
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1703070549865343877
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7381221214771232468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7807538432633192378, guid: f910f0a8d5185bf48bff59564c99128e, type: 3}
