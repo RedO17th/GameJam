@@ -47,8 +47,4 @@ public static class Score
             EventManager.SendHighscoreChanged(_highscore);
         }
     }
-
-
-
-
 }

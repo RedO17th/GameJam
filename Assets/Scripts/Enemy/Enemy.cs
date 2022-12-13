@@ -47,8 +47,8 @@ public class Enemy : MonoBehaviour
         _makeDamage.enabled = true;
         _enemyMove.enabled = true;
         _animator.enabled = true;
-        _enemyRenderer.material = _defaultMaterial;
         _enemyRenderer.enabled = true;
+        _enemyRenderer.material = _defaultMaterial;
     }
 
     private void OnDisable()
@@ -93,9 +93,9 @@ public class Enemy : MonoBehaviour
     {
         _enemyMove.enabled = false;
         _animator.enabled = false;
+        _makeDamage.enabled = false;
 
         _enemyRenderer.material = _deadMaterial;
-        _makeDamage.enabled = false;
 
         yield return new WaitForSeconds(0.5f);
 

@@ -19,9 +19,6 @@ public class Game : MonoBehaviour
         Time.timeScale = 1;
         GameParameters.GameRunning = true;
 
-     
-
-
     }
 
     private void GameOver()
@@ -30,7 +27,6 @@ public class Game : MonoBehaviour
             PlayerPrefs.SetInt("highscore", Score.Hidhscore);
 
         PauseManager.Pause();
-
     }
 
 }

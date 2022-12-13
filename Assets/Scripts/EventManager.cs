@@ -1,4 +1,5 @@
 using UnityEngine.Events;
+
 public static class EventManager
 {
     public static readonly UnityEvent<Enemy> OnEnemyKilled = new UnityEvent<Enemy>();
@@ -23,7 +24,5 @@ public static class EventManager
     public static void SendOrderChanged() => OnOrderChanged?.Invoke();
 
     public static void SendAbilityChanged(AbilityType type) => OnAbilityChanged?.Invoke(type);
-
-
 }
 
