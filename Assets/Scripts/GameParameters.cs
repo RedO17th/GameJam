@@ -2,6 +2,6 @@
 public static class GameParameters 
 {
     public static bool GameRunning = true;
-    //volume
+    public static float Volume;
     //
 }

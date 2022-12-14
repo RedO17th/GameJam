@@ -73,8 +73,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        //Вынес установку стартовых настроек игры в отдельный класс game
-       
         //ChangeFireType(_activeFireType);  
     }
 

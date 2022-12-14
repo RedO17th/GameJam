@@ -2216,6 +2216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 624199912}
   - component: {fileID: 624199911}
+  - component: {fileID: 624199913}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -2334,6 +2335,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &624199913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624199910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f573a26615406049bbe4296d94951ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _music: {fileID: 624199911}
+  _volumeSlider: {fileID: 753675227}
 --- !u!1 &651793502
 GameObject:
   m_ObjectHideFlags: 0
@@ -3099,19 +3114,7 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 624199911}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: set_volume
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &760792281
 GameObject:
   m_ObjectHideFlags: 0
@@ -5463,15 +5466,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 276043776}
   _enemyPoolsParant: {fileID: 1669754207}
+  _poolSize: 50
   _spawnInterval: 3
-  _spawnIntervalMax: 3
   _stepTime: 0.1
-  _spawnZones:
+  _stepGold: 200
+  _spawnAreas:
   - {fileID: 1551134052}
   - {fileID: 1006286721}
   - {fileID: 1043082274}
   - {fileID: 1860564154}
-  _stepGold: 50
 --- !u!1 &1439506060
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,21 +5,29 @@ using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [Space]
     [SerializeField] private BasePlayer _player;
+    [Space]
     [SerializeField] private GameObject _enemyPoolsParant;
-    [SerializeField] private float _spawnInterval, _spawnIntervalMax = 3f, _stepTime = 0.1f;
+    [SerializeField] private int _poolSize = 50;
 
-    [SerializeField] private GameObject[] _spawnZones;
-    [SerializeField] private int _stepGold = 50;
+    [Space]
+    [SerializeField] private float _spawnInterval = 3f, _stepTime = 0.1f;
+    [SerializeField] private int _stepGold = 200;
+    
+    [Space]
+    [SerializeField] private GameObject[] _spawnAreas;
 
     private Enemy[] _enemyPrefabs;
     private ObjectPool<Enemy>[] _enemyPools;
-    private Coroutine _spawningRandomEnemy;
+    private Coroutine _spawnRandomEnemy;
 
     private List<int> _allChances;
     private int _chancesSum;
+    private float _spawnCooldown;
 
     private static EnemySpawner _instance;
+
     public static EnemySpawner GetInstance()
     {
         return _instance;
@@ -43,46 +51,45 @@ public class EnemySpawner : MonoBehaviour
 
     private void CalculateSpawnInterval(int value)
     {
-        _spawnInterval = _spawnIntervalMax - (Score.TotalEarned / _stepGold) * _stepTime;
-        if (_spawnInterval <= 0.1f)
+        _spawnCooldown = _spawnInterval - (Score.TotalEarned / _stepGold) * _stepTime;
+        if (_spawnCooldown <= 0.1f)
         {
-            _spawnInterval = 0.2f;
+            _spawnCooldown = 0.2f;
         }
     }
 
     public void StopSpawning()
     {
-        StopCoroutine(_spawningRandomEnemy);
+        StopCoroutine(_spawnRandomEnemy);
     }
 
     public void StartSpawning()
     {
-        PreparePrefabs();
-        
+        PreparePools();
 
-        _spawningRandomEnemy = StartCoroutine(SpawnRandomEnemyFromPool());
+        _spawnRandomEnemy = StartCoroutine(SpawnRandomEnemyFromPool());
     }
 
-    private void PreparePrefabs()
+    private void PreparePools()
     {
         _enemyPrefabs = Resources.LoadAll<Enemy>("Prefabs/EnemyPrefabs");
 
-        CreatePools();
+        CreatePools(_enemyPrefabs, _poolSize);
     }
 
-    private void CreatePools()
+    private void CreatePools(Enemy[] enemyPrefabs, int poolSize)
     {
-        _enemyPools = new ObjectPool<Enemy>[_enemyPrefabs.Length];
+        _enemyPools = new ObjectPool<Enemy>[enemyPrefabs.Length];
 
         _allChances = new List<int>();
         _chancesSum = 0;
 
-        for (int i = 0; i < _enemyPrefabs.Length; i++)
+        for (int i = 0; i < enemyPrefabs.Length; i++)
         {
-            _enemyPools[(int)_enemyPrefabs[i].Type] = new ObjectPool<Enemy>(createFunc: () => new Enemy(), actionOnGet: (obj) => obj.gameObject.SetActive(true), actionOnRelease: (obj) => obj.gameObject.SetActive(false), actionOnDestroy: (obj) => Destroy(obj), false, defaultCapacity: 50);
+            _enemyPools[(int)enemyPrefabs[i].Type] = new ObjectPool<Enemy>(createFunc: () => new Enemy(), actionOnGet: (obj) => obj.gameObject.SetActive(true), actionOnRelease: (obj) => obj.gameObject.SetActive(false), actionOnDestroy: (obj) => Destroy(obj), false, defaultCapacity: poolSize);
 
-            AddChances(_enemyPrefabs[i].Weight);
-            FillPool(_enemyPools[(int)_enemyPrefabs[i].Type], _enemyPrefabs[i], 50);
+            AddChances(enemyPrefabs[i].Weight);
+            FillPool(_enemyPools[(int)enemyPrefabs[i].Type], enemyPrefabs[i], poolSize);
         }
     }
 
@@ -107,17 +114,20 @@ public class EnemySpawner : MonoBehaviour
         while (GameParameters.GameRunning)
         {
             SpawnPrefabFromPool(GetWeightRandomPrefabFromPool(), GetRandomSpawnPositionInZones()); //GetRandomSpawnPosition(_arenaWidth, _arenaHeight));
-            yield return new WaitForSeconds(_spawnInterval);
+            yield return new WaitForSeconds(_spawnCooldown);
         }
     }
 
     private void SpawnPrefabFromPool(ObjectPool<Enemy> pool, Vector3 position)
     {
-        Enemy enemy = pool.Get();
-        //enemy.transform.position = position;
-        enemy.SetPosition(position);
-        enemy.SetTarget(_player);
-        enemy.GetComponent<CharacterController>().enabled = true;
+        if (pool.CountInactive > 0)
+        {
+            Enemy enemy = pool.Get();
+            //enemy.transform.position = position;
+            enemy.SetPosition(position);
+            enemy.SetTarget(_player);
+            enemy.GetComponent<CharacterController>().enabled = true;
+        }
     }
 
     private ObjectPool<Enemy> GetWeightRandomPrefabFromPool()
@@ -139,23 +149,21 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetRandomSpawnPositionInZones()
     {
-        Transform zoneTransform = _spawnZones[Random.Range(0, _spawnZones.Length)].transform;
-        Vector3 pos = new Vector3();
-        pos.x = Random.Range(0, zoneTransform.localScale.x) + zoneTransform.position.x - zoneTransform.localScale.x / 2;
-        pos.z = Random.Range(0, zoneTransform.localScale.z) + zoneTransform.position.z - zoneTransform.localScale.z / 2;
-        pos.y = 0;
+        Transform zoneTransform = _spawnAreas[Random.Range(0, _spawnAreas.Length)].transform;
+        Vector3 position = new Vector3();
+        position.x = Random.Range(0, zoneTransform.localScale.x) + zoneTransform.position.x - zoneTransform.localScale.x / 2;
+        position.z = Random.Range(0, zoneTransform.localScale.z) + zoneTransform.position.z - zoneTransform.localScale.z / 2;
+        position.y = 0;
 
-        Collider[] colliders = Physics.OverlapSphere(pos, 0.5f);
+        Collider[] colliders = Physics.OverlapSphere(position, 0.5f);
   
         if (colliders.Length > 1)  
         {
-            //Debug.Log("Что-то есть");
             return GetRandomSpawnPositionInZones();
         }
         else
         {
-            //Debug.Log("Ничего нет");
-            return pos;
+            return position;
         }  
     }
 
