@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public enum EnemyType
 {
+    //None = -1,
     TypeA,
     TypeB,
     TypeC,
@@ -33,7 +35,8 @@ public class Enemy : MonoBehaviour
     public int Weight => _weight;
     public int Price => _price;
 
-    private EnemyMove _enemyMove;
+    private EnemyMove _enemyMove = null;
+
     private bool _invulnerable = false;
 
     private void Awake()
@@ -42,36 +45,38 @@ public class Enemy : MonoBehaviour
         _makeDamage.SetDamage(_damage);
     }
 
+    //Данные операции разойдуться по необходимым сущностям
     private void OnEnable()
     {
         _makeDamage.enabled = true;
+
         _enemyMove.enabled = true;
+        
         _animator.enabled = true;
+        
         _enemyRenderer.enabled = true;
         _enemyRenderer.material = _defaultMaterial;
     }
 
-    private void OnDisable()
-    {
-        _enemyMove.SetSpeedToDefault();
-    }
+    //Можно вынести в аналогичный метод в сущность EnemyMove
+    private void OnDisable() => _enemyMove.SetSpeedToDefault();
 
-    public void SetTarget(BasePlayer target)
-    {
-        _enemyMove.SetTarget(target);
-    }
+    public void SetTarget(BasePlayer target) => _enemyMove.SetTarget(target);
 
-    public void SetPosition(Vector3 position)
-    {
-        transform.position = position;
-    }
+    public void SetPosition(Vector3 position) => transform.position = position;
 
-    [ContextMenu("TakeDamage")]
+    //DamageManager
     public void TakeDamage()
     {
         if (_invulnerable)
             return;
 
+        DefineOrderType();
+    }
+    //..
+
+    private void DefineOrderType()
+    {
         if (OrderManager.Order == (int)Type)
         {
             Die();
@@ -85,7 +90,6 @@ public class Enemy : MonoBehaviour
     [ContextMenu("Die")]
     private void Die()
     {
-
         StartCoroutine(DieCoroutine());
     }
 
@@ -113,6 +117,7 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
+    //BoostManager
     private void Boost()
     {
         StartCoroutine(BoostCoroutine());
@@ -128,4 +133,5 @@ public class Enemy : MonoBehaviour
 
         _invulnerable = false;
     }
+    //..
 }

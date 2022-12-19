@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7938687835576196357, guid: 6048a4fa6e8e4e241b8e8387536edfe1, type: 3}
   m_PrefabInstance: {fileID: 678650051}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340564862}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92a0b67602f77f04e9cfb071b47c02aa, type: 3}
@@ -2779,7 +2779,7 @@ PrefabInstance:
     - target: {fileID: 7938687835576196357, guid: 6048a4fa6e8e4e241b8e8387536edfe1, type: 3}
       propertyPath: _cameraController
       value: 
-      objectReference: {fileID: 1890856194}
+      objectReference: {fileID: 1890856196}
     - target: {fileID: 7938687835576196358, guid: 6048a4fa6e8e4e241b8e8387536edfe1, type: 3}
       propertyPath: m_Name
       value: MainPlayer
@@ -5128,11 +5128,6 @@ RectTransform:
   m_AnchoredPosition: {x: 40, y: 5.73}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1340564862 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7938687835576196358, guid: 6048a4fa6e8e4e241b8e8387536edfe1, type: 3}
-  m_PrefabInstance: {fileID: 678650051}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1415784914
 GameObject:
   m_ObjectHideFlags: 0
@@ -5435,7 +5430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1434999167
 Transform:
   m_ObjectHideFlags: 0
@@ -6941,7 +6936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee41af832d99694fbefb0363be61c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1340564862}
+  _player: {fileID: 276043776}
   _distance: {x: 0, y: 0, z: 0}
   _speed: 50
 --- !u!1001 &1897892023

@@ -22,6 +22,7 @@ public class Game : MonoBehaviour
 
     private void GameOver()
     {
+        //..
         if (Score.Hidhscore > PlayerPrefs.GetInt("highscore"))
             PlayerPrefs.SetInt("highscore", Score.Hidhscore);
 

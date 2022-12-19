@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BasePlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject _cameraController;
+    [SerializeField] private CameraControl _cameraController;
     [SerializeField] private AbilitySystem _abilitySystem = null;
 
     [SerializeField] private Animator _aController = null;
@@ -26,8 +26,8 @@ public class BasePlayer : MonoBehaviour
 
     private CharacterController _charController = null;
 
-    public float horInput = 0f;
-    public float vertInput = 0f;
+    private float _horInput = 0f;
+    private float _vertInput = 0f;
 
 
     private void Awake()
@@ -49,15 +49,16 @@ public class BasePlayer : MonoBehaviour
 
     void Update()
     {
-        if (!GameParameters.GameRunning) return;
+        if (GameParameters.GameRunning == false) return;
 
         UseAbility();
 
         Rotation();
         Movement();
 
-        _aController.SetFloat("Vertical", vertInput);
-        _aController.SetFloat("Horizontal", horInput);
+        //Обернуть методом
+        _aController.SetFloat("Vertical", _vertInput);
+        _aController.SetFloat("Horizontal", _horInput);
     }
 
     #region Movement
@@ -79,22 +80,14 @@ public class BasePlayer : MonoBehaviour
     }
     private void Movement()
     {
-        horInput = Input.GetAxis("Horizontal");
-        vertInput = Input.GetAxis("Vertical");
+        _horInput = Input.GetAxis("Horizontal");
+        _vertInput = Input.GetAxis("Vertical");
 
-        Vector3 move = new Vector3(horInput, 0, vertInput);
+        Vector3 move = new Vector3(_horInput, 0, _vertInput);
 
-        Vector3 gravity = Vector3.zero;
-        if(transform.position.y > 0)
-        {
-            gravity = Vector3.down;
-        }
-        else
-        {
-            gravity = Vector3.zero;
-        }
-        
-        _charController.Move(_cameraController.transform.rotation * (move + gravity) * Time.deltaTime * _speed);
+        Vector3 gravity = (transform.position.y > 0) ? Vector3.down : Vector3.zero;
+
+        _charController.Move(_cameraController.Rotation * (move + gravity) * Time.deltaTime * _speed);
     }
 
     #endregion
@@ -103,42 +96,15 @@ public class BasePlayer : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //_aController.SetBool("Shoot", true);
-
             TakeDamage(_abilitySystem.AbilityPrice);
             OnUseAbility?.Invoke();
         }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            //_aController.SetBool("Shoot", false);
-        }
     }   
     
-    public void TakeDamage(int damage)
-    {
-        //_wallet -= damage;
-        //EventManager.SendGoldChanged(-damage);
-        //if(_wallet <= 0)
-        //{
-        //    _wallet = 0;
-        //    EventManager.SendGameOver();
-        //}
+    public void TakeDamage(int damage) => Score.GoldDecrease(damage);
 
-        Score.GoldDecrease(damage);
-    }
+    private void EnemyKilled(Enemy enemy) => AddGold(enemy.Price);
 
-    private void EnemyKilled(Enemy enemy)
-    {
-        AddGold(enemy.Price);
-    }
-
-    public static void AddGold(int value)
-    {
-        //_wallet += value;
-        //EventManager.SendGoldChanged(value);
-
-        Score.GoldIncrease(value);
-    }
+    public static void AddGold(int value) => Score.GoldIncrease(value);
 }
  

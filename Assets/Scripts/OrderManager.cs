@@ -9,6 +9,7 @@ public class OrderManager : MonoBehaviour
 
     public static int Order { get; private set; }
 
+    //Изначальная инициализация
     private float _currentCooldown;
     private static int _orderCount;
 
@@ -36,10 +37,7 @@ public class OrderManager : MonoBehaviour
     //    EventManager.SendOrderChanged();
     //}
 
-    private void SetNewOrder(Enemy enemy)
-    {
-        ChangeOrder();
-    }
+    private void SetNewOrder(Enemy enemy) => ChangeOrder();
 
     private void ChangeOrder()
     {
@@ -61,7 +59,19 @@ public class OrderManager : MonoBehaviour
         if (!GameParameters.GameRunning)
             return;
 
+        //_currentCooldown -= Time.deltaTime;
+        //if (_currentCooldown <= 0)
+        //{
+        //    ChangeOrder();
+        //}
+
+        ChangeOrderByTime();
+    }
+
+    private void ChangeOrderByTime()
+    {
         _currentCooldown -= Time.deltaTime;
+
         if (_currentCooldown <= 0)
         {
             ChangeOrder();

@@ -14,8 +14,6 @@ public class EnemySpawner : MonoBehaviour
     [Space]
     [SerializeField] private float _spawnInterval = 3f, _stepTime = 0.1f;
     [SerializeField] private int _stepGold = 200;
-    
-    [Space]
     [SerializeField] private GameObject[] _spawnAreas;
 
     private Enemy[] _enemyPrefabs;
@@ -52,6 +50,7 @@ public class EnemySpawner : MonoBehaviour
     private void CalculateSpawnInterval(int value)
     {
         _spawnCooldown = _spawnInterval - (Score.TotalEarned / _stepGold) * _stepTime;
+
         if (_spawnCooldown <= 0.1f)
         {
             _spawnCooldown = 0.2f;
@@ -72,6 +71,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void PreparePools()
     {
+        //Магические числа
         _enemyPrefabs = Resources.LoadAll<Enemy>("Prefabs/EnemyPrefabs");
 
         CreatePools(_enemyPrefabs, _poolSize);
@@ -104,6 +104,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             Enemy enemy = Instantiate(prefab);
+            //..
             enemy.transform.SetParent(_enemyPoolsParant.transform);
             pool.Release(enemy);
         }
@@ -123,10 +124,10 @@ public class EnemySpawner : MonoBehaviour
         if (pool.CountInactive > 0)
         {
             Enemy enemy = pool.Get();
-            //enemy.transform.position = position;
-            enemy.SetPosition(position);
-            enemy.SetTarget(_player);
-            enemy.GetComponent<CharacterController>().enabled = true;
+                enemy.SetPosition(position);
+                enemy.SetTarget(_player);
+                //..
+                enemy.GetComponent<CharacterController>().enabled = true;
         }
     }
 
@@ -138,6 +139,7 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < _allChances.Count; i++)
         {
             sum += _allChances[i];
+
             if (value < sum)
             {
                 return _enemyPools[i];
@@ -150,26 +152,22 @@ public class EnemySpawner : MonoBehaviour
     private Vector3 GetRandomSpawnPositionInZones()
     {
         Transform zoneTransform = _spawnAreas[Random.Range(0, _spawnAreas.Length)].transform;
+
+        //Одинаковые строчки, при необходимости вынести в отдельные методы
         Vector3 position = new Vector3();
-        position.x = Random.Range(0, zoneTransform.localScale.x) + zoneTransform.position.x - zoneTransform.localScale.x / 2;
-        position.z = Random.Range(0, zoneTransform.localScale.z) + zoneTransform.position.z - zoneTransform.localScale.z / 2;
-        position.y = 0;
+                position.x = Random.Range(0, zoneTransform.localScale.x) + zoneTransform.position.x - zoneTransform.localScale.x / 2;
+                position.z = Random.Range(0, zoneTransform.localScale.z) + zoneTransform.position.z - zoneTransform.localScale.z / 2;
+                position.y = 0;
 
         Collider[] colliders = Physics.OverlapSphere(position, 0.5f);
-  
-        if (colliders.Length > 1)  
-        {
-            return GetRandomSpawnPositionInZones();
-        }
-        else
-        {
-            return position;
-        }  
+
+        return (colliders.Length > 1) ? GetRandomSpawnPositionInZones() : position;
     }
 
     private void ReturnEnemyToPool(Enemy enemy)
     {
         enemy.GetComponent<CharacterController>().enabled = false;
+
         _enemyPools[(int)enemy.Type].Release(enemy);
     }
 }

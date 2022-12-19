@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public class CoinHeap : MonoBehaviour
@@ -6,6 +7,7 @@ public class CoinHeap : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //Не использовать на практике Теги
         if (other.CompareTag("Player"))
         {
             //EventManager.SendGoldChanged(_goldCount);
@@ -16,10 +18,8 @@ public class CoinHeap : MonoBehaviour
         }
     }
 
-    public void SetGoldCount(int value)
-    {
-        _goldCount = value;
-    }
+    public void SetGoldCount(int value) => _goldCount = value;
+
     //private void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.collider.CompareTag("Player"))

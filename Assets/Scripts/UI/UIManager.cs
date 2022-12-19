@@ -131,6 +131,7 @@ public class UIManager : MonoBehaviour
     
     private void UseAbility(AbilityType type)
     {
+        //Схожие решения, при определенных ситуациях можно обернуть наследованием
         switch (type)
         {
             case AbilityType.MidasHand:
@@ -141,18 +142,19 @@ public class UIManager : MonoBehaviour
                 ChangeFireType(AbilityType.MidasHand);
                 break;
 
-            case AbilityType.CloseCombat:
-                if (_activeFireType != type)
-                {
-                    StartCoroutine(SetAbilityToCooldown(_imageRangeAttack, 0.3f));
-                }
-                ChangeFireType(AbilityType.CloseCombat);
-                break;
+            //case AbilityType.CloseCombat:
+            //    if (_activeFireType != type)
+            //    {
+            //        StartCoroutine(SetAbilityToCooldown(_imageRangeAttack, 0.3f));
+            //    }
+            //    ChangeFireType(AbilityType.CloseCombat);
+            //    break;
         }
     }
 
     private IEnumerator SetAbilityToCooldown(Image abilityImage, float cooldown) 
     {
+        //While короче и понятнее
         for (float t = 0; t < 1; t += Time.deltaTime / cooldown)
         {
             abilityImage.color = Color.Lerp(Color.gray, Color.white, t);
@@ -164,6 +166,7 @@ public class UIManager : MonoBehaviour
     {
         _activeFireType = abilityType;
 
+        //Схожие решения, при определенных ситуациях можно обернуть наследованием
         if (abilityType == AbilityType.MidasHand)
         {
             _imageRangeAttack.rectTransform.localScale = new Vector3(1, 1, 1);
@@ -186,6 +189,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Зависимый метод (от флага). Имя
     private void SetUI(bool show)
     {
         _orderPanel.SetActive(show);

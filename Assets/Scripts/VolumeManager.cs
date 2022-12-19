@@ -6,6 +6,8 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] private AudioSource _music;
     [SerializeField] private Slider _volumeSlider;
 
+    //Slider можно обернуть сущностью
+
     private void Awake()
     {
         LoadVolume();
@@ -20,6 +22,7 @@ public class VolumeManager : MonoBehaviour
 
     void Start()
     {
+        //VolumeManager не должен знать внутренее устройство слайдера, он должен просто отправлять сообщения/вызывать методы
         _volumeSlider.value = GameParameters.Volume;
         _music.volume = GameParameters.Volume;
     }
@@ -33,11 +36,13 @@ public class VolumeManager : MonoBehaviour
 
     private void LoadVolume()
     {
+        //..
         GameParameters.Volume = PlayerPrefs.GetFloat("volume", 0.4f);
     }
 
     private void SaveVolume()
     {
+        //..
         PlayerPrefs.SetFloat("volume", GameParameters.Volume);
     } 
 }

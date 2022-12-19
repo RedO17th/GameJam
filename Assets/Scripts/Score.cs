@@ -26,16 +26,6 @@ public static class Score
         EventManager.SendGoldChanged(_gold);
     }
 
-    public static void GoldDecrease(int value)
-    {
-        _gold -= value;
-        EventManager.SendGoldChanged(_gold);
-        if (_gold <= 0)
-        {
-            EventManager.SendGameOver();
-        }
-    }
-
     private static void TotalEarnedIncease(int value)
     {
         _score += value;
@@ -45,6 +35,23 @@ public static class Score
         {
             _highscore = _score;
             EventManager.SendHighscoreChanged(_highscore);
+        }
+    }
+
+    public static void GoldDecrease(int value)
+    {
+        _gold -= value;
+
+        EventManager.SendGoldChanged(_gold);
+
+        CheckByGameOver();
+    }
+
+    private static void CheckByGameOver()
+    {
+        if (_gold <= 0)
+        {
+            EventManager.SendGameOver();
         }
     }
 }

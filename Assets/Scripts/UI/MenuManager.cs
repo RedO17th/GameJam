@@ -6,9 +6,12 @@ public class MenuManager : MonoBehaviour
     [SerializeField]
     private GameObject _menuPanel, _creditsPanel, _volumeSlider;
 
+    private int _secondScene = 1;
+
     public void Play()
     {
-        SceneManager.LoadScene(1);
+        //Магическое число
+        SceneManager.LoadScene(_secondScene);
     }
 
     public void Credits()
@@ -22,8 +25,5 @@ public class MenuManager : MonoBehaviour
         _volumeSlider.SetActive(!_volumeSlider.activeSelf);
     }
 
-    public void Exit()
-    {
-        Application.Quit();
-    }
+    public void Exit() => Application.Quit();
 }

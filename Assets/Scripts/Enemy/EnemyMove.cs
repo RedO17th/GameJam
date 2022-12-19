@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
+    [SerializeField] private CharacterController _characterController;
     [SerializeField] float _speed = 5;
 
-    [SerializeField] private CharacterController _characterController;
     
     private BasePlayer _target;
 
@@ -12,43 +12,46 @@ public class EnemyMove : MonoBehaviour
 
     private void Awake()
     {
-        //_characterController = GetComponent<CharacterController>();
         _defaultSpeed = _speed;
     }
 
     private void Update()
     {
-        if (!GameParameters.GameRunning) return;
+        if (GameParameters.GameRunning == false) return;
+        
         if (_target == null)
             return;
 
         Vector3 targetVector = (_target.Position - transform.position).normalized;
-        targetVector.y = 0;
+                targetVector.y = 0;
 
         if (targetVector.Equals(Vector3.zero))
             return;
 
+        //..
+        Rotate(targetVector);
+        Move(targetVector);
+        //
+    }
+
+    private void Move(Vector3 targetVector)
+    {
         _characterController.SimpleMove(_speed * targetVector);
+    }
+
+    private void Rotate(Vector3 targetVector)
+    {
         _characterController.transform.rotation = Quaternion.LookRotation(targetVector);
     }
 
-    private void OnDisable()
-    {
-    }
+    public void SetTarget(BasePlayer target) => _target = target;
 
-    public void SetTarget(BasePlayer target)
-    {
-        _target = target;
-    }
-
+    //Increase?
     public void RaiseSpeed(float percent)
     {
         _speed += _speed * percent;
     }
 
-    public void SetSpeedToDefault()
-    {
-        _speed = _defaultSpeed;
-    }
+    public void SetSpeedToDefault() => _speed = _defaultSpeed;
 
 }
